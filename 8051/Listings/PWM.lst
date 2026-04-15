@@ -1,0 +1,52 @@
+A51 MACRO ASSEMBLER  PWM                                                                  04/16/2026 01:50:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\PWM.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE PWM.asm SET(SMALL) DEBUG PRINT(.\Listings\PWM.lst) OBJECT(.\Objects\PWM
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0x0
+                       2     
+                       3     
+0000 78FE              4     MOV R0, #0xfe   ; Duty out of 8-bits
+0002 793F              5     MOV R1, #0x3F   ; Total time out of 8-bits
+0004 8823              6     MOV 0x23, R0
+                       7     
+0006                   8     MAINLOOP:
+0006 74FF              9         MOV     A,  #0xFF
+                      10     
+0008 759000           11         MOV     P1, #0x0
+                      12         
+000B 60F9             13         CYCLE:  JZ      MAINLOOP
+000D 14               14                 DEC     A
+000E 8922             15                 MOV     0x22,R1
+0010 D522FD           16                             D1:     DJNZ 0x22,D1
+0013 B523F5           17                 CJNE    A,0x23,CYCLE
+0016 759001           18                 MOV     P1, #0x1
+                      19     
+                      20     END
+                             
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  PWM                                                                  04/16/2026 01:50:21 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CYCLE. . . . . . .  C ADDR   000BH   A   
+D1 . . . . . . . .  C ADDR   0010H   A   
+MAINLOOP . . . . .  C ADDR   0006H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

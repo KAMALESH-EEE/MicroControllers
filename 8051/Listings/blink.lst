@@ -1,34 +1,45 @@
-A51 MACRO ASSEMBLER  BLINK                                                                04/15/2026 23:34:38 PAGE     1
+A51 MACRO ASSEMBLER  BLINK                                                                04/16/2026 01:05:50 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
-OBJECT MODULE PLACED IN .\Objects\blink.obj
-ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE C:\Keil_v5\C51\Examples\HELLO\blink.asm SET(SMALL) DEBUG PRINT(.\Listin
-                      gs\blink.lst) OBJECT(.\Objects\blink.obj) EP
+OBJECT MODULE PLACED IN .\Objects\Blink.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Blink.asm SET(SMALL) DEBUG PRINT(.\Listings\Blink.lst) OBJECT(.\Objects
+                      \Blink.obj) EP
 
 LOC  OBJ            LINE     SOURCE
 
-0000                   1     ORG 0000H        ; Program start
+0000                   1     ORG 0000H
                        2     
-0000                   3     MAIN:
-0000 C290              4         CLR P1.0     ; LED ON (active low)
-0002 110A              5         ACALL DELAY
-                       6     
-0004 D290              7         SETB P1.0    ; LED OFF
-0006 110A              8         ACALL DELAY
-                       9     
-0008 80F6             10         SJMP MAIN    ; Loop forever
+                       3     
+0000                   4     MAIN:
+0000 759001            5         MOV P1, #0x01
+0003 110C              6         ACALL DELAY
+                       7     
+0005 759000            8         MOV P1, #0x0
+0008 110C              9         ACALL DELAY
+                      10     
                       11     
-                      12     ; -------- Delay Subroutine --------
-000A                  13     DELAY:
-000A 78C8             14         MOV R0, #200
-000C 79FF             15     D1: MOV R1, #255
-000E D9FE             16     D2: DJNZ R1, D2
-0010 D8FA             17         DJNZ R0, D1
-0012 22               18         RET
-                      19     
-                      20     END;
-A51 MACRO ASSEMBLER  BLINK                                                                04/15/2026 23:34:38 PAGE     2
+000A 80F4             12         JMP MAIN
+                      13     
+000C                  14     DELAY:
+000C 7803             15         MOV R0, #0x3
+000E D801             16         LOOP:   DJNZ    R0, SUBDELAY
+0010 22               17         RET
+                      18     
+                      19         
+                      20     
+0011                  21     SUBDELAY:
+0011 79FF             22         MOV R1, #0xff
+0013 D902             23         SUBLOOP:   DJNZ    R1,SUBDELAY1
+0015 80F7             24         JMP LOOP
+                      25     
+0017                  26     SUBDELAY1:
+0017 7AFF             27         MOV R2, #0xff
+0019 DAFE             28         SUBLOOP1:   DJNZ    R2,SUBLOOP1
+001B 80F6             29         JMP SUBLOOP
+                      30     
+                      31     END
+A51 MACRO ASSEMBLER  BLINK                                                                04/16/2026 01:05:50 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -36,11 +47,14 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-D1 . . . . . . . .  C ADDR   000CH   A   
-D2 . . . . . . . .  C ADDR   000EH   A   
-DELAY. . . . . . .  C ADDR   000AH   A   
+DELAY. . . . . . .  C ADDR   000CH   A   
+LOOP . . . . . . .  C ADDR   000EH   A   
 MAIN . . . . . . .  C ADDR   0000H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
+SUBDELAY . . . . .  C ADDR   0011H   A   
+SUBDELAY1. . . . .  C ADDR   0017H   A   
+SUBLOOP. . . . . .  C ADDR   0013H   A   
+SUBLOOP1 . . . . .  C ADDR   0019H   A   
 
 
 REGISTER BANK(S) USED: 0 

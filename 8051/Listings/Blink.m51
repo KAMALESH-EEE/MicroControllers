@@ -1,13 +1,13 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/15/2026  23:35:27  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/16/2026  01:50:21  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\blink.obj TO .\Objects\Blink PRINT (.\Listings\Blink.m51)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\PWM.obj TO .\Objects\Blink PRINT (.\Listings\Blink.m51)
 
 
 INPUT MODULES INCLUDED:
   .\Objects\STARTUP.obj (?C_STARTUP)
-  .\Objects\blink.obj (BLINK)
+  .\Objects\PWM.obj (PWM)
 
 
 LINK MAP OF MODULE:  .\Objects\Blink (?C_STARTUP)
@@ -22,8 +22,8 @@ LINK MAP OF MODULE:  .\Objects\Blink (?C_STARTUP)
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
-* OVERLAP * CODE    0000H     0013H     ABSOLUTE     
-                    0013H     07EDH                  *** GAP ***
+* OVERLAP * CODE    0000H     0019H     ABSOLUTE     
+                    0019H     07E7H                  *** GAP ***
             CODE    0800H     000CH     UNIT         ?C_C51STARTUP
 
 
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Blink (?C_STARTUP)
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
   C:0800H         SYMBOL        STARTUP1
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/15/2026  23:35:27  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/16/2026  01:50:21  PAGE 2
 
 
   N:0000H         SYMBOL        XBPSTACK
@@ -75,23 +75,23 @@ SYMBOL TABLE OF MODULE:  .\Objects\Blink (?C_STARTUP)
   C:0809H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
-  -------         MODULE        BLINK
-  C:000CH         SYMBOL        D1
-  C:000EH         SYMBOL        D2
-  C:000AH         SYMBOL        DELAY
-  C:0000H         SYMBOL        MAIN
+  -------         MODULE        PWM
+  C:000BH         SYMBOL        CYCLE
+  C:0010H         SYMBOL        D1
+  C:0006H         SYMBOL        MAINLOOP
   D:0090H         SYMBOL        P1
   C:0000H         LINE#         4
   C:0002H         LINE#         5
-  C:0004H         LINE#         7
-  C:0006H         LINE#         8
-  C:0008H         LINE#         10
-  C:000AH         LINE#         14
-  C:000CH         LINE#         15
-  C:000EH         LINE#         16
-  C:0010H         LINE#         17
-  C:0012H         LINE#         18
-  -------         ENDMOD        BLINK
+  C:0004H         LINE#         6
+  C:0006H         LINE#         9
+  C:0008H         LINE#         11
+  C:000BH         LINE#         13
+  C:000DH         LINE#         14
+  C:000EH         LINE#         15
+  C:0010H         LINE#         16
+  C:0013H         LINE#         17
+  C:0016H         LINE#         18
+  -------         ENDMOD        PWM
 
 *** WARNING L5: CODE SPACE MEMORY OVERLAP
     FROM:    0000H
@@ -107,8 +107,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\Blink (?C_STARTUP)
     ADDRESS: 080AH
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0022H BYTE ( 1%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0028H BYTE ( 1%) *
 ******************************************************************************
 
-Program Size: data=9.0 xdata=0 code=34
+Program Size: data=9.0 xdata=0 code=40
 LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

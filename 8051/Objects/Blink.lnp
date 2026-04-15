@@ -1,4 +1,4 @@
 ".\Objects\STARTUP.obj",
-".\Objects\blink.obj" 
+".\Objects\PWM.obj" 
 TO ".\Objects\Blink" 
 PRINT(".\Listings\Blink.m51")

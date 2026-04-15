@@ -1,0 +1,31 @@
+ORG 0000H
+
+
+MAIN:
+    MOV P1, #0x01
+    ACALL DELAY
+
+    MOV P1, #0x0
+    ACALL DELAY
+
+
+    JMP MAIN
+
+DELAY:
+    MOV R0, #0x3
+    LOOP:   DJNZ    R0, SUBDELAY
+    RET
+
+    
+
+SUBDELAY:
+    MOV R1, #0xff
+    SUBLOOP:   DJNZ    R1,SUBDELAY1
+    JMP LOOP
+
+SUBDELAY1:
+    MOV R2, #0xff
+    SUBLOOP1:   DJNZ    R2,SUBLOOP1
+    JMP SUBLOOP
+
+END

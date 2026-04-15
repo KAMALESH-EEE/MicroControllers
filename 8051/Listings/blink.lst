@@ -1,0 +1,49 @@
+A51 MACRO ASSEMBLER  BLINK                                                                04/15/2026 23:34:38 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\blink.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE C:\Keil_v5\C51\Examples\HELLO\blink.asm SET(SMALL) DEBUG PRINT(.\Listin
+                      gs\blink.lst) OBJECT(.\Objects\blink.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H        ; Program start
+                       2     
+0000                   3     MAIN:
+0000 C290              4         CLR P1.0     ; LED ON (active low)
+0002 110A              5         ACALL DELAY
+                       6     
+0004 D290              7         SETB P1.0    ; LED OFF
+0006 110A              8         ACALL DELAY
+                       9     
+0008 80F6             10         SJMP MAIN    ; Loop forever
+                      11     
+                      12     ; -------- Delay Subroutine --------
+000A                  13     DELAY:
+000A 78C8             14         MOV R0, #200
+000C 79FF             15     D1: MOV R1, #255
+000E D9FE             16     D2: DJNZ R1, D2
+0010 D8FA             17         DJNZ R0, D1
+0012 22               18         RET
+                      19     
+                      20     END;
+A51 MACRO ASSEMBLER  BLINK                                                                04/15/2026 23:34:38 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   000CH   A   
+D2 . . . . . . . .  C ADDR   000EH   A   
+DELAY. . . . . . .  C ADDR   000AH   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

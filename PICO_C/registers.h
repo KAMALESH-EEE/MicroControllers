@@ -1,6 +1,6 @@
 #ifndef REGISTERS_H
 #define REGISTERS_H
-#endif
+
 
 // IO CONTROL REGISTERS Details
 
@@ -76,6 +76,57 @@
 #define FUN_SIO 5
 
 
+
+// I2C register details
+
+
+#define BASE_I2C1 0x40048000
+
+#define I2C1_CTRL_REG     (* (volatile uint32_t *) (BASE_I2C1 + 0x00))
+
+#define I2C1_TAR_REG      (* (volatile uint32_t *) (BASE_I2C1 + 0x04))
+
+#define I2C1_CMD_REG      (* (volatile uint32_t *) (BASE_I2C1 + 0x10))
+
+#define I2C1_STS_REG      (* (volatile uint32_t *) (BASE_I2C1 + 0x70))
+
+#define I2C1_SCK_HCNT_REG (* (volatile uint32_t *) (BASE_I2C1 + 0x14))
+
+#define I2C1_SCK_LCNT_REG (* (volatile uint32_t *) (BASE_I2C1 + 0x18))
+
+#define I2C1_EN_REG       (* (volatile uint32_t *) (BASE_I2C1 + 0x6c))
+
+#define I2C1_TX_FL_REG    (* (volatile uint32_t *) (BASE_I2C1 + 0x74))
+
+#define I2C1_RX_FL_REG    (* (volatile uint32_t *) (BASE_I2C1 + 0x78))
+
+#define I2C_RESTART 0x400
+
+#define I2C_STOP    0x200
+
+#define I2C_READ    0x100
+
+#define I2C_WRITE   0x000
+
+
+#define I2C_S_EN 0x00
+#define I2C_S_DIS 0x40
+
+#define I2C_M_RESTART 0x20
+
+#define I2C_10BIT_M_ADDR_EN 0x10
+
+#define I2C_10BIT_S_ADDR_EN 0x8
+
+#define I2C_SPEED_STD 0x2
+
+#define I2C_M_EN 0x1
+#define I2C_M_DIS 0x0
+
+
+
+#define FUN_I2C 3
+
 // IO CONFIGURATION REGISTERS (SIO) details
 
 #define BASE_SIO 0xd0000000
@@ -99,7 +150,21 @@
 #define TIM_RAW_H_REG (* (volatile uint32_t *) (BASE_TIMER + 0x24)) 
 #define TIM_RAW_L_REG (* (volatile uint32_t *) (BASE_TIMER + 0x28)) 
 
+// Structure declearation
 
+typedef struct I2C1 I2C1;
+
+struct I2C1
+{
+  uint32_t SCK_PIN ,SDA_PIN;
+
+  uint8_t SlaveID;
+
+  uint8_t (*Read )  (I2C1 *self, uint8_t Addr);
+  void    (*Write)  (I2C1 *self, uint8_t Addr, uint8_t Data);
+};
+
+void I2C_DEVICE (I2C1 *S_dev, uint8_t S_ID);
 
 
 // FUNCTION declearation
@@ -116,3 +181,9 @@ void usleep (int64_t uS);
 
 void HC_SR04_init ();
 float get_distance ();
+
+void I2C0_init();
+void DS1307_write(uint16_t data);
+uint8_t DS1307_read(uint8_t data);
+
+#endif

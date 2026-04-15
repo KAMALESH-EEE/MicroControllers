@@ -46,7 +46,7 @@ void GPIO__OUT(uint8_t pin, bool sts)
 
 uint64_t get_time_uS ()
 {
-    return (TIM_RAW_H_REG << 32 |TIM_RAW_L_REG);
+    return ((TIM_RAW_H_REG << 32) |TIM_RAW_L_REG);
 }
 
 void usleep (int64_t uS)
@@ -115,5 +115,68 @@ float get_distance ()
   }
 
   return 100000.0;
+
+}
+
+
+void i2c_write(I2C1 *self, uint8_t Addr, uint8_t Data)
+{
+
+  I2C1_TAR_REG = self -> SlaveID;
+
+
+  while (true)    if ((I2C1_TX_FL_REG & 0xff) < 0xff) break;
+  I2C1_CMD_REG = (I2C_RESTART | I2C_WRITE) | (Addr & 0xff);
+  
+  
+  while (true)    if ((I2C1_TX_FL_REG & 0xff) < 0xff) break;
+  I2C1_CMD_REG = (I2C_STOP | I2C_WRITE) | (Data & 0xff);
+  usleep(1000);
+
+}
+
+uint8_t i2c_read(I2C1 *self, uint8_t Addr)
+{
+
+  I2C1_TAR_REG = self -> SlaveID;
+
+  while (true)    if ((I2C1_TX_FL_REG &0xff) < 0xff)    break;
+  I2C1_CMD_REG = (I2C_RESTART | I2C_WRITE) | ((Addr) & 0xff);
+  
+
+  while (true)    if ((I2C1_TX_FL_REG &0xff) < 0xff)    break;
+  I2C1_CMD_REG = (I2C_RESTART | I2C_STOP | I2C_READ);
+
+  
+  while (true)    if ((I2C1_RX_FL_REG &0xff))     break;
+  usleep(1000);
+
+  return (uint8_t)(I2C1_CMD_REG & 0xff);
+  
+}
+
+
+void I2C_DEVICE (I2C1 *S_dev, uint8_t S_ID)
+
+{
+
+  GPIO__INIT (27, FUN_I2C);
+  GPIO__INIT (26, FUN_I2C);
+
+  
+
+  S_dev->SlaveID = S_ID;
+
+  S_dev->Read  = i2c_read ;
+  S_dev->Write = i2c_write;
+
+  I2C1_EN_REG = 0;
+
+  I2C1_SCK_HCNT_REG = 600;
+  I2C1_SCK_LCNT_REG = 600;
+
+  I2C1_CTRL_REG     = (I2C_S_DIS | I2C_M_RESTART | I2C_SPEED_STD | I2C_M_EN);
+
+  I2C1_EN_REG = 1;
 
 }
